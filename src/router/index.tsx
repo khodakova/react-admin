@@ -12,8 +12,9 @@ export interface IRoute {
 }
 
 export enum RouteNames {
-    LOGIN = '/login',
     DASHBOARD = '/',
+    LOGIN = '/login',
+    REGISTER = '/register',
     TAB1 = '/tab1',
     TAB2 = '/tab2',
 }
