@@ -1,18 +1,34 @@
+import React, { useEffect } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-import React from 'react';
-import {BrowserRouter as Router} from 'react-router-dom';
-import {ToastContainer} from 'react-toastify';
+import { useStore } from "@src/store/store";
 
 import Layout from '@src/layouts';
+import { observer } from "mobx-react-lite";
+import { LinearProgress } from "@mui/material";
 
 const App: React.FC = () => {
+    const { commonStore: { appLoaded, checkAuth, setAppLoaded } } = useStore();
+
+    useEffect(() => {
+        checkAuth();
+        setAppLoaded();
+    }, []);
+
+    if (!appLoaded) {
+        return (
+            <LinearProgress/>
+        )
+    }
+
     return (
         <Router>
-            <Layout />
-            <ToastContainer />
+            <Layout/>
+            <ToastContainer/>
         </Router>
     );
 };
 
-export default App;
+export default observer(App);

@@ -3,15 +3,18 @@ import { FormikProps } from 'formik';
 import { useCapsLock } from '@src/hooks/useCapsLock';
 import logo from '@images/logo.png';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import LoginInput from '@src/pages/login/components/login/LoginInput';
+import LoginInput from '@src/pages/login/components/loginInput/LoginInput';
 import Button from '@mui/material/Button';
 import { ICredentials, IHelperCredentials } from '@src/pages/login/containers/login/LoginForm';
 import { Checkbox } from '@mui/material';
+import { observer } from 'mobx-react-lite';
+import { useStore } from '@src/store/store';
 
 const LoginForm = (props: IHelperCredentials & FormikProps<ICredentials>) => {
-    const {touched, errors, handleSubmit, handleChange, values} = props;
-    const {caps, onKeyDown} = useCapsLock();
+    const { touched, errors, handleSubmit, handleChange, values } = props;
+    const { caps, onKeyDown } = useCapsLock();
     const [passVisible, setPassVisible] = useState(false);
+    const { authStore: { remember, setRemember } } = useStore();
 
     const handleClick = () => {
         setPassVisible(!passVisible);
@@ -46,16 +49,20 @@ const LoginForm = (props: IHelperCredentials & FormikProps<ICredentials>) => {
                     icon={ passVisible
                         ? <VisibilityOff
                             fill="#fff"
-                            sx={ {color: 'white'} }
+                            sx={ { color: 'white' } }
                         />
                         : <Visibility
                             fill="#fff"
-                            sx={ {color: 'white'} }
+                            sx={ { color: 'white' } }
                         /> }
                 />
-                <div>
-                    <Checkbox defaultChecked color="secondary" />
-                    <div>Запомнить?</div>
+                <div className='inputs__remember'>
+                    <Checkbox
+                        color="secondary"
+                        checked={ remember }
+                        onChange={ setRemember }
+                    />
+                    <p>Запомнить?</p>
                 </div>
                 <Button
                     type='submit'
@@ -68,4 +75,4 @@ const LoginForm = (props: IHelperCredentials & FormikProps<ICredentials>) => {
     );
 };
 
-export default LoginForm;
+export default observer(LoginForm);

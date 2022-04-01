@@ -1,18 +1,19 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-
-import { HEADERS, IMenuItem, RouteNames } from '@src/router';
+import { useNavigate } from 'react-router-dom';
+import { HEADERS, RouteNames } from '@src/router';
 import { useStore } from '@src/store/store';
-import { AppBar, Box, IconButton, Toolbar, Tooltip } from '@mui/material';
+import { Box, Breadcrumbs, IconButton, Link, Toolbar, Tooltip } from '@mui/material';
 import { Logout } from '@mui/icons-material';
-
+import MenuIcon from '@mui/icons-material/Menu';
 import logo from '@images/logo.png';
+import cn from 'classnames';
+import { AppBar } from "@src/layouts/header/AppBar.styled";
 
 const Header: React.FC = () => {
     const {
-        commonStore: {section, setSection, setIsSidepanelVisible, currentUser},
-        authStore: {logout},
+        commonStore: { section, isSidePanel, setSection, setIsSidePanel, currentUser },
+        authStore: { logout },
     } = useStore();
     const navigate = useNavigate();
 
@@ -28,31 +29,33 @@ const Header: React.FC = () => {
 
     return (
         <Box>
-            <AppBar position='static'>
-                <Toolbar sx={ {justifyContent: 'space-between'} }>
+            <AppBar position='fixed' open={ isSidePanel }>
+                <Toolbar sx={ { justifyContent: 'space-between' } }>
                     <img
                         onClick={ handleClickLogo }
                         src={ logo }
                         alt='logo skkdc'
-                        className='app-header__logo'
-                        width={ 120 }
+                        className={ cn('app-header__logo', { 'hide': isSidePanel }) }
+                        width={ 50 }
                     />
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={ setIsSidePanel }
+                        edge="start"
+                        sx={ {
+                            margin: '0 36px',
+                            ...(isSidePanel && { display: 'none' }),
+                        } }
+                    >
+                        <MenuIcon/>
+                    </IconButton>
                     <div className='menu'>
-                        <ul>
-                            {
-                                HEADERS.map((item: IMenuItem) =>
-                                    <li
-                                        key={ item.to }
-                                        onClick={ () => setSection(item) }
-                                        className={ section.to === item.to ? 'active' : '' }
-                                    >
-                                        <Link to={ item.to }>
-                                            { item.label }
-                                        </Link>
-                                    </li>,
-                                )
-                            }
-                        </ul>
+                        <Breadcrumbs aria-label="breadcrumb">
+                            <Link underline="hover" color="white" href={ section.to }>
+                                { section.label }
+                            </Link>
+                        </Breadcrumbs>
                     </div>
                     <Box sx={ {
                         flexGrow: 0,

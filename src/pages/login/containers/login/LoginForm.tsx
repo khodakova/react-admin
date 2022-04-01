@@ -26,14 +26,14 @@ const validationSchema = yup.object({
         .string()
         .required('Необходимо ввести пароль!')
         .min(4, 'Пароль должен содержать минимум 4 символа')
-        .max(50, 'Слишком много символов'),
+        .max(50, 'Слишком много символов')
 });
 
 const LoginFormContainer = withFormik<IHelperCredentials, ICredentials>({
     mapPropsToValues: props => {
         return {
             email: props.initialEmail || '',
-            password: '',
+            password: ''
         };
     },
 

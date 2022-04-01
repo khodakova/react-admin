@@ -3,10 +3,11 @@
   width: 100vw;
   height: 100vh;
   position: relative;
-  padding-top: 4em;
+  padding-top: 8em;
+  box-sizing: border-box;
 
   &__content {
-    background-color: rgba(255, 255, 255, .1);
+    background-color: rgba(255, 255, 255, .2);
     width: 500px;
     height: 500px;
     margin: 0 auto;
@@ -39,119 +40,6 @@
 
     img {
       max-width: 100%;
-    }
-  }
-
-  form {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    text-align: center;
-    padding: 2em;
-    z-index: 1;
-
-    .inputs {
-      position: relative;
-      margin-top: 5em;
-
-      &__item {
-        position: relative;
-      }
-
-      input {
-        width: 80%;
-        box-sizing: border-box;
-        padding: 15px 15px;
-        margin: 0.7em auto;
-        border: solid white 1px;
-        background: rgba(255, 255, 255, 0.2);
-        outline: none;
-        color: #fff;
-        text-align: center;
-
-        &::placeholder {
-          color: #fff;
-          font-size: 17px;
-        }
-
-        &:focus::placeholder {
-          opacity: 0;
-          transition: opacity 0.3s ease;
-        }
-
-      }
-
-      &:focus {
-        input {
-          &::placeholder {
-            display: none;
-          }
-        }
-      }
-
-      .light {
-        text-align: right;
-        color: #fff;
-
-        a {
-          color: #fff;
-        }
-      }
-
-      &__warning {
-        position: absolute;
-        color: $error-color;
-        top: -25px;
-        left: 50%;
-        transform: translateX(-50%);
-      }
-
-      &__error {
-        position: absolute;
-        top: 62px;
-        left: 50%;
-        transform: translateX(-50%);
-        color: $error-color;
-        font-size: 13px;
-      }
-
-      &__icon {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        right: 60px;
-        cursor: pointer;
-      }
-
-      .error {
-        input {
-          border: solid $error-color 1px;
-        }
-      }
-    }
-
-    button {
-      margin-top: 50px;
-      cursor: pointer;
-      width: 80%;
-      padding: 10px 15px;
-      border: solid white 1px;
-      border-radius: 0;
-      background: #ffffff;
-      outline: none;
-      color: $primary-color;
-      font-size: 16px;
-      font-weight: 500;
-      text-transform: uppercase;
-
-      &:hover {
-        background: $primary-color;
-        color: white;
-        //border: none;
-        box-shadow: 0 0 8px rgba(0, 0, 0, .5);
-      }
-
     }
   }
 }

@@ -1,0 +1,73 @@
+.login {
+  .inputs {
+    position: relative;
+    margin-top: 5em;
+    padding: 0 3em;
+
+    &__item {
+      position: relative;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 15px 15px;
+      margin: 0.7em auto;
+      border: solid white 1px;
+      background: rgba(255, 255, 255, 0.2);
+      outline: none;
+      color: #fff;
+      text-align: center;
+
+      &::placeholder {
+        color: #fff;
+        font-size: 17px;
+      }
+
+      &:focus::placeholder {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+    }
+
+    &:focus {
+      input {
+        &::placeholder {
+          display: none;
+        }
+      }
+    }
+
+    &__warning {
+      position: absolute;
+      color: $error-color;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &__error {
+      position: absolute;
+      top: 62px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: $error-color;
+      font-size: 13px;
+    }
+
+    &__icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 1em;
+      cursor: pointer;
+    }
+
+    .error {
+      input {
+        border: solid $error-color 1px;
+      }
+    }
+  }
+}

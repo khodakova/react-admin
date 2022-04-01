@@ -1,0 +1,49 @@
+.login {
+  form {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 2em;
+
+    .inputs {
+
+      &__remember {
+        display: flex;
+        color: white;
+        align-items: center;
+
+        span {
+          color: white;
+        }
+
+        p {
+          cursor: pointer;
+        }
+      }
+    }
+
+    button {
+      margin-top: 1em;
+      cursor: pointer;
+      width: 80%;
+      padding: 10px 15px;
+      border: solid white 1px;
+      border-radius: 0;
+      background: #ffffff;
+      outline: none;
+      color: $primary-color;
+      font-size: 16px;
+      font-weight: 500;
+      text-transform: uppercase;
+
+      &:hover {
+        background: $primary-color;
+        color: white;
+        box-shadow: 0 0 8px rgba(0, 0, 0, .5);
+      }
+
+    }
+  }
+}

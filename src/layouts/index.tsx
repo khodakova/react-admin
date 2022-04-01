@@ -1,21 +1,18 @@
-import {observer} from 'mobx-react-lite';
-import React, {Fragment, useEffect} from 'react';
-import {useLocation} from 'react-router';
+import React, { Fragment, useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
+import { HEADERS } from '@src/router';
 
-import SidepanelMenu from '@src/layouts/sidepanelMenu';
-import Login from '@src/pages/login';
-import {HEADERS} from '@src/router';
-import {useStore} from '@src/store/store';
+import { useStore } from '@src/store/store';
+import { useLocation } from 'react-router';
 
 import Footer from './footer';
+import SidePanelMenu from '@src/layouts/sidepanelMenu';
 import Header from './header';
 import Main from './main';
+import Login from '@src/pages/login';
 
 const Layout: React.FC = () => {
-    const {
-        commonStore: {isAuth, setSection},
-    } = useStore();
-
+    const { commonStore: { isAuth, setSection } } = useStore();
     const location = useLocation();
 
     useEffect(() => {
@@ -27,15 +24,15 @@ const Layout: React.FC = () => {
     if (isAuth) {
         return (
             <Fragment>
-                <Header />
-                <SidepanelMenu />
-                <Main />
-                <Footer />
+                <Header/>
+                <SidePanelMenu/>
+                <Main/>
+                <Footer/>
             </Fragment>
         );
     }
 
-    return <Login />;
+    return <Login/>;
 };
 
 export default observer(Layout);

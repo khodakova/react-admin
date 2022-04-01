@@ -2,6 +2,7 @@ import { makeAutoObservable } from 'mobx';
 import { store } from './store';
 import { ServerError } from '@src/types';
 import { history } from '@src/index';
+import { ICredentials } from '@src/pages/login/containers/login/LoginForm';
 
 /**
  * Стор для авторизации пользователя в приложении
@@ -9,9 +10,11 @@ import { history } from '@src/index';
 class AuthStore {
     isLoading = false;
     error: ServerError | undefined = undefined;
-    credentials = {
+    credentials: ICredentials = {
+        email: '',
         password: '',
     };
+    remember = true;
 
     constructor() {
         makeAutoObservable(this);
@@ -22,6 +25,9 @@ class AuthStore {
      */
     reset = () => {
         this.credentials.password = '';
+        this.credentials.email = '';
+        this.error = undefined;
+        this.isLoading = false;
     };
 
     /**
@@ -36,9 +42,13 @@ class AuthStore {
      * Установка пометки по текущему запросу к серверу
      * @param bool
      */
-    setIsLoading(bool: boolean) {
+    setIsLoading = (bool: boolean) => {
         this.isLoading = bool;
-    }
+    };
+
+    setRemember = () => {
+        this.remember = !this.remember;
+    };
 
     /**
      * Вход в приложение с получением токена
@@ -55,16 +65,19 @@ class AuthStore {
                 name: 'atata',
             };
             // установка токена
-            store.commonStore.setToken(res.token);
+            store.commonStore.setToken(res.token, this.remember);
             // установка пользователя
-            store.commonStore.setUser({ ...res });
+            store.commonStore.setUser({...res});
             // пометка о том, что пользователь авторизован
             store.commonStore.setIsAuth(true);
+            if (this.remember) {
+
+            }
         } catch (err: any) {
             if (!err.statusCode) {
                 this.setError(err);
             } else {
-                this.setError({ message: err.details });
+                this.setError({message: err.details});
             }
         } finally {
             this.setIsLoading(false);

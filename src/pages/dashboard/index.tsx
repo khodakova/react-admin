@@ -9,13 +9,14 @@ const keywords: Array<ITag> = [
     { color: '#f5672a', label: 'MOBx' },
     { color: '#e94949', label: 'react-router 6' },
     { color: '#bf4080', label: 'sass' },
+    { color: '#420abf', label: 'material UI' },
 ];
 
 const Dashboard: React.FC = () => {
     return (
         <div className='dashboard'>
             <div className='title'>
-                React typescript webpack boilerplate extended
+                React admin
             </div>
             <div>
                 <div className='keywords'>

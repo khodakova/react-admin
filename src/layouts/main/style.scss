@@ -1,14 +1,19 @@
 #main {
   flex: 1 1 auto;
-  // min-height: 70vh;
 }
 
 .home {
   min-height: 40vh;
-  //display: flex;
-  //align-items: center;
-  //justify-content: center;
-  //text-align: center;
   padding-bottom: 80px;
   padding-top: 40px;
+  width: calc(100vw - 57px);
+  transition: all .3s;
+  overflow: hidden;
+  margin-left: 57px;
+}
+
+.is-sidepanel {
+  transition: all .3s;
+  width: calc(100vw - 240px);
+  margin-left: 240px;
 }

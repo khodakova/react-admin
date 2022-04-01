@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { IRoute, privateRoutes, publicRoutes, RouteNames } from '@src/router';
-import { observer } from 'mobx-react-lite';
-import { useStore } from '@src/store/store';
 import { getLastRoute, setLastRoute } from '@src/helpers/localStorage';
 
-const AppRouter: React.FC = () => {
-    const { commonStore: { isAuth, checkAuth } } = useStore();
+interface AppRouterProps {
+    isAuth: boolean
+}
+
+const AppRouter: React.FC<AppRouterProps> = ({ isAuth }) => {
 
     const nav = useNavigate();
 
@@ -15,10 +16,6 @@ const AppRouter: React.FC = () => {
         window.onbeforeunload = () => {
             setLastRoute(JSON.stringify(window.location.pathname));
         };
-    }, []);
-
-    useEffect(() => {
-        checkAuth();
     }, []);
 
     if (!isAuth) {
@@ -50,4 +47,4 @@ const AppRouter: React.FC = () => {
     }
 };
 
-export default observer(AppRouter);
+export default AppRouter;

@@ -1,7 +1,7 @@
 {
-    "name": "react-ts-boilerplate",
+    "name": "react-admin",
     "version": "1.0.0",
-    "description": "Webpack 5 boilerplate",
+    "description": "react admin",
     "keywords": [
         "react",
         "typescript",

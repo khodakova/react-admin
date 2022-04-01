@@ -1,10 +1,10 @@
 import React from 'react';
 import { lazy } from 'react';
-
+import InboxIcon from '@mui/icons-material/MoveToInbox';
 const Login = lazy(() => import('@src/pages/login'));
 const Dashboard = lazy(() => import('@src/pages/dashboard'));
-const Tab1 = lazy(() => import('@src/pages/dashboard/components/tab1'));
-const Tab2 = lazy(() => import('@src/pages/dashboard/components/tab2'));
+const Tab1 = lazy(() => import('@src/pages/tab1'));
+const Tab2 = lazy(() => import('@src/pages/tab2'));
 
 export interface IRoute {
     path: string;
@@ -23,6 +23,8 @@ export interface IMenuItem {
     name: string;
     to: string;
     label: string;
+    icon: React.ReactElement;
+    routes?: IMenuItem[]
 }
 
 export const HEADERS: Array<IMenuItem> = [
@@ -30,16 +32,19 @@ export const HEADERS: Array<IMenuItem> = [
         name: '1',
         to: '/',
         label: 'Dashboard',
+        icon: <InboxIcon/>
     },
     {
         name: '2',
         to: '/tab1',
         label: 'Menu 1',
+        icon: <InboxIcon/>
     },
     {
         name: '3',
         to: '/tab2',
         label: 'Menu 2',
+        icon: <InboxIcon/>
     },
 ];
 
