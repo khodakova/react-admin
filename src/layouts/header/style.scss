@@ -1,6 +1,8 @@
 @include headerItemAnimation;
 
 .app-header {
+  transition: all 1s;
+
   &__tolbar {
     display: flex;
     justify-content: center;
@@ -13,11 +15,15 @@
     left: 5px;
 
     .hide {
-          display: none;
+      display: none;
     }
   }
 }
 
+.game {
+  height: 200px;
+  background-color: #79d1fd;
+}
 
 .menu {
   width: 100%;
@@ -86,3 +92,4 @@
     }
   }
 }
+

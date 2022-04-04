@@ -51,6 +51,9 @@ const SidepanelMenu: React.FC = () => {
                     </Link>
                 )) }
             </List>
+            <div className={ cn('sidepanel__footer', { 'show': isSidePanel }) }>
+                2022, copyright(c) atata
+            </div>
         </Drawer>
     );
 };
