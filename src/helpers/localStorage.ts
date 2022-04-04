@@ -2,19 +2,26 @@ import { isBrowser } from '@src/utils';
 
 const TOKEN_NAME = 'token';
 
-export const saveToken = (token?: string) =>
+export const saveToken = (token?: string, remember = true) =>
     isBrowser && token
-        ? localStorage.setItem(TOKEN_NAME, token)
+        ? (() => {
+            remember
+                ? localStorage.setItem(TOKEN_NAME, token)
+                : sessionStorage.setItem(TOKEN_NAME, token);
+        })()
         : null;
 
 export const getToken = (): string | null =>
     isBrowser
-        ? localStorage.getItem(TOKEN_NAME)
+        ? localStorage.getItem(TOKEN_NAME) || sessionStorage.getItem(TOKEN_NAME)
         : null;
 
 export const deleteToken = () =>
     isBrowser
-        ? localStorage.removeItem(TOKEN_NAME)
+        ? (() => {
+            localStorage.removeItem(TOKEN_NAME);
+            sessionStorage.removeItem(TOKEN_NAME);
+        })()
         : null;
 
 
@@ -34,3 +41,5 @@ export const deleteLastRoute = () =>
     isBrowser
         ? localStorage.removeItem(LAST_ROUTE_NAME)
         : null;
+
+

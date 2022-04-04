@@ -9,8 +9,7 @@ class CommonStore {
     currentUser: IUser | null = null;
     isAuth = false;
     appLoaded = false;
-    pageIndex = 0;
-    isSidepanelVisible = false;
+    isSidePanel = false;
     section: IMenuItem = HEADERS[0];
 
     constructor() {
@@ -29,9 +28,9 @@ class CommonStore {
      * Установка токена в стор и sessionStorage
      * @param token
      */
-    setToken = (token: string | null) => {
+    setToken = (token: string | null, remember = false) => {
         if (token != null) {
-            saveToken(token);
+            saveToken(token, remember);
             this.token = token;
         }
     };
@@ -66,20 +65,16 @@ class CommonStore {
     };
 
     /**
-     * Выбор вкладки
-     * @param index
+     * Изменение состояния видимости бокового меню
      */
-    setPageIndex = (index: number) => {
-        this.pageIndex = index;
+    setIsSidePanel = () => {
+        this.isSidePanel = !this.isSidePanel;
     };
 
     /**
-     * Изменение состояния видимости бокового меню
+     * Установка рабочей секции по маршруту
+     * @param section
      */
-    setIsSidepanelVisible = () => {
-        this.isSidepanelVisible = !this.isSidepanelVisible;
-    };
-
     setSection = (section: IMenuItem) => {
         this.section = section;
     };
@@ -95,7 +90,7 @@ class CommonStore {
         this.setIsAuth(false);
         this.removeToken();
         this.removeUser();
-        this.isSidepanelVisible = false;
+        this.isSidePanel = false;
     }
 }
 

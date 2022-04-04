@@ -1,5 +1,10 @@
 @import '~normalize.css/normalize.css';
 
+#root {
+  overflow: hidden;
+}
+
+@import './variables';
 @import './size';
 @import './container';
 @import './font';

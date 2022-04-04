@@ -1,76 +1,60 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useStore } from '@src/store/store';
 import { observer } from 'mobx-react-lite';
 import { HEADERS, IMenuItem } from '@src/router';
 import { Link } from 'react-router-dom';
+import { Divider, IconButton, List, ListItem, ListItemIcon, ListItemText, Tooltip } from "@mui/material";
+import { useTheme } from '@mui/material/styles';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { useEscape } from "@src/hooks/useEscape";
+import { Drawer, DrawerHeader } from "@src/layouts/sidepanelMenu/Drawer.styled";
+import cn from 'classnames';
 
 const SidepanelMenu: React.FC = () => {
     const {
-        commonStore: {
-            isSidepanelVisible,
-            setIsSidepanelVisible,
-            section,
-            setSection,
-        },
-        authStore: { logout },
+        commonStore: { isSidePanel, section, setIsSidePanel, setSection },
     } = useStore();
-
-    const escFunction = useCallback((event: any) => {
-        if (event.keyCode === 27) {
-            setIsSidepanelVisible();
-        }
-    }, []);
-
-    const handleClick = (item: IMenuItem) => {
-        setIsSidepanelVisible();
-        setSection(item);
-    };
+    const theme = useTheme();
+    const { escFunction } = useEscape(setIsSidePanel);
 
     useEffect(() => {
-        isSidepanelVisible
+        isSidePanel
             ? document.addEventListener('keydown', escFunction, false)
             : document.removeEventListener('keydown', escFunction, false);
-    }, [isSidepanelVisible]);
+    }, [isSidePanel]);
 
     return (
-        <>
-            <div
-                className={ `sidepanel-menu ${ isSidepanelVisible ? 'show' : '' }` }
-                onClick={ (e) => e.stopPropagation() }
-            >
-                <div className='s-menu__title'>
-                    <a
-                        onClick={ setIsSidepanelVisible }
-                        href='#'
-                        className='s-menu-close'
+        <Drawer open={ isSidePanel } variant='permanent'>
+            <DrawerHeader>
+                <IconButton onClick={ setIsSidePanel }>
+                    { theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/> }
+                </IconButton>
+            </DrawerHeader>
+            <Divider/>
+            <List>
+                { HEADERS.map((item: IMenuItem, idx) => (
+                    <Link
+                        to={ item.to }
+                        key={ idx }
+                        className={ cn('sidepanel__item', { 'sidepanel__item_active': section.to === item.to }) }
+                        onClick={ () => setSection(item) }
                     >
-                        +
-                    </a>
-                </div>
-                <ul>
-                    { HEADERS.map(item => (
-                        <li
-                            key={ item.name }
-                            className={section.name === item.name ? 'active' : ''}
-                        >
-                            <Link
-                                to={ item.to }
-                                onClick={ () => handleClick(item) }
-                            >
-                                { item.label }
-                            </Link>
-                        </li>
-                    )) }
-                    <li onClick={ logout }>
-                        Выйти
-                    </li>
-                </ul>
+                        <ListItem button>
+                            <Tooltip title={ item.label }>
+                                <ListItemIcon>
+                                    { item.icon }
+                                </ListItemIcon>
+                            </Tooltip>
+                            <ListItemText primary={ item.label }/>
+                        </ListItem>
+                    </Link>
+                )) }
+            </List>
+            <div className={ cn('sidepanel__footer', { 'show': isSidePanel }) }>
+                2022, copyright(c) atata
             </div>
-            <div
-                className={ `overlay-menu ${ isSidepanelVisible ? 'active' : '' }` }
-                onClick={ setIsSidepanelVisible }
-            />
-        </>
+        </Drawer>
     );
 };
 
