@@ -1,8 +1,10 @@
-import { makeAutoObservable } from 'mobx';
-import { store } from './store';
-import { ServerError } from '@src/types';
-import { history } from '@src/index';
-import { ICredentials } from '@src/pages/login/containers/login/LoginForm';
+import {makeAutoObservable} from 'mobx';
+
+import {history} from '@src/index';
+import ServerError from '@src/models/ServerError';
+import {ICredentials} from '@src/pages/login/containers/login/LoginForm';
+
+import {store} from './store';
 
 /**
  * Стор для авторизации пользователя в приложении
@@ -62,6 +64,7 @@ class AuthStore {
             const res = {
                 token: 'atata',
                 id: 1,
+                email: 'atata@atata.atata',
                 name: 'atata',
             };
             // установка токена
@@ -71,14 +74,9 @@ class AuthStore {
             // пометка о том, что пользователь авторизован
             store.commonStore.setIsAuth(true);
             if (this.remember) {
-
             }
         } catch (err: any) {
-            if (!err.statusCode) {
-                this.setError(err);
-            } else {
-                this.setError({message: err.details});
-            }
+            console.log(err);
         } finally {
             this.setIsLoading(false);
             this.reset();
