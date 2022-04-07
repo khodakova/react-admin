@@ -1,12 +1,14 @@
-import { makeAutoObservable } from 'mobx';
-import { IUser, ServerError } from '@src/types';
-import { deleteToken, getToken, saveToken } from '@src/helpers/localStorage';
-import { HEADERS, IMenuItem } from '@src/router';
+import {makeAutoObservable} from 'mobx';
+
+import {deleteToken, getToken, saveToken} from '@src/helpers/localStorage';
+import ServerError from '@src/models/ServerError';
+import {User} from '@src/models/User';
+import {HEADERS, IMenuItem} from '@src/router';
 
 class CommonStore {
     error: ServerError | null = null;
     token: string | null = null;
-    currentUser: IUser | null = null;
+    currentUser: User | null = null;
     isAuth = false;
     appLoaded = false;
     isSidePanel = false;
@@ -39,7 +41,7 @@ class CommonStore {
      * Установкапользователя в sessionStorage
      * @param user
      */
-    setUser = (user: IUser) => {
+    setUser = (user: User) => {
         sessionStorage.setItem('user', JSON.stringify(user));
         this.currentUser = user;
     };
@@ -57,7 +59,7 @@ class CommonStore {
      */
     removeUser = () => {
         sessionStorage.removeItem('user');
-        this.currentUser = {} as IUser;
+        this.currentUser = {} as User;
     };
 
     setAppLoaded = () => {
@@ -91,8 +93,7 @@ class CommonStore {
         this.removeToken();
         this.removeUser();
         this.isSidePanel = false;
-    }
+    };
 }
 
 export default CommonStore;
-

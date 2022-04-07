@@ -1,18 +1,22 @@
-import { createContext, useContext } from 'react';
-import CommonStore from '@src/store/commonStore';
+import {createContext, useContext} from 'react';
+
 import AuthStore from '@src/store/authStore';
-import GameStore from "@src/store/gameStore";
+import CommonStore from '@src/store/commonStore';
+import GameStore from '@src/store/gameStore';
+import TodoStore from '@src/store/todoStore';
 
 interface Store {
-    commonStore: CommonStore,
-    authStore: AuthStore,
-    gameStore: GameStore
+    commonStore: CommonStore;
+    authStore: AuthStore;
+    gameStore: GameStore;
+    todoStore: TodoStore;
 }
 
 export const store: Store = {
     commonStore: new CommonStore(),
     authStore: new AuthStore(),
-    gameStore: new GameStore()
+    gameStore: new GameStore(),
+    todoStore: new TodoStore(),
 };
 
 export const StoreContext = createContext(store);

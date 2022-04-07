@@ -1,0 +1,24 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "name": "to drink a coffee",
+      "date": "12.04.2022"
+    },
+    {
+      "id": 2,
+      "name": "to drink a lot of coffee",
+      "date": "12.04.2022"
+    },
+    {
+      "id": 3,
+      "name": "to drink a little more coffee",
+      "date": "12.04.2022"
+    },
+    {
+      "id": 4,
+      "name": "to watch memchiks",
+      "date": "12.04.2022"
+    }
+  ]
+}
